@@ -1,0 +1,290 @@
+/* Shared motion layer combining transitions-dev tokens/patterns,
+   design-taste-frontend micro-interactions, and ReactBits-style spotlight physics. */
+:root {
+  --resize-dur: 300ms;
+  --resize-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --digit-dur: 420ms;
+  --digit-distance: 7px;
+  --digit-stagger: 55ms;
+  --digit-blur: 2px;
+  --digit-ease: cubic-bezier(0.34, 1.45, 0.64, 1);
+  --digit-dir-x: 0;
+  --digit-dir-y: 1;
+
+  --modal-open-dur: 250ms;
+  --modal-close-dur: 150ms;
+  --modal-scale: 0.96;
+  --modal-scale-close: 0.96;
+  --modal-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --check-opacity-dur: 380ms;
+  --check-rotate-dur: 380ms;
+  --check-rotate-from: 40deg;
+  --check-bob-dur: 360ms;
+  --check-y-amount: 6px;
+  --check-blur-dur: 320ms;
+  --check-blur-from: 4px;
+  --check-path-dur: 360ms;
+  --check-path-delay: 60ms;
+  --check-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --check-ease-bob: cubic-bezier(0.34, 1.35, 0.64, 1);
+
+  --shake-distance: 6px;
+  --shake-overshoot: 4px;
+  --shake-dur-a: 80ms;
+  --shake-dur-b: 60ms;
+  --shake-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --revert-hold: 2600ms;
+  --revert-dur: 280ms;
+}
+
+/* Taste Skill: one-time entrance on load */
+@keyframes taste-enter-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+[data-enter] {
+  animation: taste-enter-up 460ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+[data-enter="delay-1"] {
+  animation-delay: 80ms;
+}
+
+[data-enter="delay-2"] {
+  animation-delay: 160ms;
+}
+
+/* Taste Skill: tactile button step + press */
+.t-pressable {
+  transition:
+    transform 160ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.t-pressable:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.t-pressable:active:not(:disabled) {
+  transform: translateY(0) scale(0.985);
+}
+
+/* Taste Skill: card 2px lift + inner photo zoom 1.03 */
+.t-card-lift {
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 220ms ease,
+    box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.t-card-lift:hover {
+  transform: translateY(-2px);
+}
+
+.t-card-lift img {
+  transition: transform 340ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.t-card-lift:hover img {
+  transform: scale(1.03);
+}
+
+/* React Bits SpotlightCard-inspired radial pointer wash */
+.rb-spotlight {
+  position: relative;
+  overflow: hidden;
+}
+
+.rb-spotlight::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    var(--spotlight-color, rgba(194, 65, 12, 0.08)),
+    transparent 65%
+  );
+  transition: opacity 240ms ease;
+}
+
+.rb-spotlight:hover::after {
+  opacity: 1;
+}
+
+/* Transitions.dev: Modal open / close */
+.t-modal-backdrop {
+  opacity: 0;
+  transition: opacity var(--modal-open-dur) var(--modal-ease);
+}
+
+.t-modal-backdrop.is-open {
+  opacity: 1;
+}
+
+.t-modal-backdrop.is-closing {
+  opacity: 0;
+  transition: opacity var(--modal-close-dur) var(--modal-ease);
+}
+
+.t-modal {
+  transform-origin: center;
+  transform: scale(var(--modal-scale));
+  opacity: 0;
+  transition:
+    transform var(--modal-open-dur) var(--modal-ease),
+    opacity var(--modal-open-dur) var(--modal-ease);
+  will-change: transform, opacity;
+}
+
+.t-modal-backdrop.is-open .t-modal,
+.t-modal.is-open {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.t-modal-backdrop.is-closing .t-modal,
+.t-modal.is-closing {
+  transform: scale(var(--modal-scale-close));
+  opacity: 0;
+  transition:
+    transform var(--modal-close-dur) var(--modal-ease),
+    opacity var(--modal-close-dur) var(--modal-ease);
+}
+
+/* Transitions.dev: Number pop-in */
+@keyframes t-digit-pop-in {
+  0% {
+    transform: translate(
+      calc(var(--digit-distance) * var(--digit-dir-x)),
+      calc(var(--digit-distance) * var(--digit-dir-y))
+    );
+    opacity: 0;
+    filter: blur(var(--digit-blur));
+  }
+  100% {
+    transform: translate(0, 0);
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+.t-digit-group {
+  display: inline-flex;
+  align-items: baseline;
+  font-variant-numeric: tabular-nums;
+}
+
+.t-digit {
+  display: inline-block;
+  will-change: transform, opacity, filter;
+}
+
+.t-digit-group.is-animating .t-digit {
+  animation: t-digit-pop-in var(--digit-dur) var(--digit-ease) both;
+}
+
+.t-digit-group.is-animating .t-digit[data-stagger="1"] {
+  animation-delay: var(--digit-stagger);
+}
+
+.t-digit-group.is-animating .t-digit[data-stagger="2"] {
+  animation-delay: calc(var(--digit-stagger) * 2);
+}
+
+/* Transitions.dev: Success check */
+.t-success-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center;
+}
+
+.t-success-check svg {
+  display: block;
+  overflow: visible;
+}
+
+.t-success-check svg path {
+  stroke-dasharray: 26;
+  stroke-dashoffset: 26;
+}
+
+.t-success-check[data-state="in"] {
+  animation:
+    t-check-fade var(--check-opacity-dur) var(--check-ease-out) forwards,
+    t-check-bob var(--check-bob-dur) var(--check-ease-bob) forwards;
+}
+
+.t-success-check[data-state="in"] svg path {
+  animation: t-check-draw var(--check-path-dur) var(--check-ease-out) var(--check-path-delay) forwards;
+}
+
+@keyframes t-check-fade {
+  from { opacity: 0.35; }
+  to { opacity: 1; }
+}
+
+@keyframes t-check-bob {
+  from { transform: translateY(var(--check-y-amount)) rotate(var(--check-rotate-from)); }
+  to { transform: translateY(0) rotate(0deg); }
+}
+
+@keyframes t-check-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Transitions.dev: Error state shake */
+.t-input {
+  transition: border-color 150ms ease-out;
+  will-change: transform;
+}
+
+.t-input.is-error {
+  border-color: #dc2626 !important;
+  transition: border-color var(--revert-dur) ease-out;
+}
+
+.t-input.is-shaking {
+  animation: t-input-shake calc(var(--shake-dur-a) * 2 + var(--shake-dur-b) * 2) linear;
+}
+
+@keyframes t-input-shake {
+  0%     { transform: translateX(0);                                  animation-timing-function: var(--shake-ease); }
+  28.57% { transform: translateX(var(--shake-distance));              animation-timing-function: var(--shake-ease); }
+  57.14% { transform: translateX(calc(var(--shake-distance) * -1)); animation-timing-function: var(--shake-ease); }
+  78.57% { transform: translateX(var(--shake-overshoot));             animation-timing-function: var(--shake-ease); }
+  100%   { transform: translateX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-enter],
+  .t-pressable,
+  .t-card-lift,
+  .t-card-lift img,
+  .t-modal-backdrop,
+  .t-modal,
+  .t-digit-group .t-digit,
+  .t-success-check,
+  .t-success-check svg path,
+  .t-input {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+  .t-success-check svg path {
+    stroke-dashoffset: 0 !important;
+  }
+}

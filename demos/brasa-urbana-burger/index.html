@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#f59e0b" />
+  <title>Brasa Urbana Burger — Cardápio Digital</title>
+  <meta name="description" content="Smash burgers na brasa, batata crocante e entrega rápida" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../shared/transitions.css" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div id="preview-banner" class="preview-banner" hidden>
+    <div class="preview-banner-inner">
+      <div class="preview-banner-text">
+        <span class="preview-dot" aria-hidden="true"></span>
+        <span>Prévia exclusiva para <strong id="preview-client-name"></strong> · No ar em até 48h</span>
+      </div>
+      <button type="button" id="btn-activate-preview" class="preview-cta-btn t-pressable">Quero ativar</button>
+    </div>
+  </div>
+
+  <main class="store-shell">
+    <header class="hero-card" data-enter>
+      <div id="hero-cover" class="hero-cover">
+        <img id="hero-cover-img" alt="Capa da loja" class="hero-cover-img" />
+        <div class="hero-cover-overlay"></div>
+        <div class="hero-top-actions">
+          <a href="../../" id="btn-back-agency" class="icon-pill t-pressable" title="Ver vitrine">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M12.5 8h-9m0 0L7 4.5M3.5 8 7 11.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Vitrine</span>
+          </a>
+          <button type="button" id="btn-open-qr" class="icon-pill t-pressable">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.5 2.5h4v4h-4v-4Zm7 0h4v4h-4v-4Zm-7 7h4v4h-4v-4Zm7 2h2m2-2v4m-4 0h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>QR Code</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-body">
+        <div class="hero-brand-row">
+          <div id="store-monogram" class="store-monogram" aria-hidden="true"></div>
+          <div class="hero-title-wrap">
+            <h1 id="store-name" class="store-name"></h1>
+            <p id="store-tagline" class="store-tagline"></p>
+          </div>
+        </div>
+
+        <div class="hero-badges">
+          <span id="status-badge" class="badge badge-status"></span>
+          <span id="prep-time-badge" class="badge"></span>
+          <span id="min-order-badge" class="badge"></span>
+          <span id="free-delivery-badge" class="badge badge-accent" hidden></span>
+        </div>
+
+        <p id="store-address" class="store-meta"></p>
+      </div>
+    </header>
+
+    <section class="sticky-controls" aria-label="Busca e categorias">
+      <div class="search-box">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <circle cx="7.2" cy="7.2" r="4.7" stroke="currentColor" stroke-width="1.6"/>
+          <path d="m11 11 3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+        <input
+          type="search"
+          id="menu-search"
+          placeholder="Buscar prato, lanche ou bebida..."
+          autocomplete="off"
+        />
+        <button type="button" id="btn-clear-search" class="clear-search-btn" hidden aria-label="Limpar busca">✕</button>
+      </div>
+      <nav id="category-pills" class="category-pills" aria-label="Categorias do cardápio"></nav>
+    </section>
+
+    <section id="menu-sections" class="menu-sections" aria-live="polite"></section>
+
+    <footer class="store-footer">
+      <p id="footer-store-hours" class="footer-hours"></p>
+      <p class="footer-powered">
+        Pedido direto sem comissão · <a href="../../" id="footer-agency-link">Feito com SG Digital</a>
+      </p>
+    </footer>
+  </main>
+
+  <div id="cart-bar" class="cart-bar" hidden>
+    <button type="button" id="btn-open-cart" class="cart-bar-btn t-pressable">
+      <span class="cart-bar-left">
+        <span id="cart-count-badge" class="cart-count-badge tabular">0</span>
+        <span>Ver sacola</span>
+      </span>
+      <span id="cart-bar-total" class="cart-bar-total tabular">R$ 0,00</span>
+    </button>
+  </div>
+
+  <!-- Modal Produto -->
+  <div id="product-modal" class="modal-backdrop t-modal-backdrop" hidden role="dialog" aria-modal="true" aria-labelledby="pm-title">
+    <div class="modal-sheet t-modal">
+      <button type="button" class="modal-close-btn t-pressable" data-close-modal="product-modal" aria-label="Fechar">✕</button>
+      <div id="pm-photo-wrap" class="pm-photo-wrap" hidden>
+        <img id="pm-photo" alt="" class="pm-photo" />
+      </div>
+      <div class="modal-content">
+        <div id="pm-tags" class="pm-tags"></div>
+        <h2 id="pm-title" class="pm-title"></h2>
+        <p id="pm-desc" class="pm-desc"></p>
+
+        <div id="pm-variants-wrap" class="pm-group" hidden>
+          <div class="pm-group-head">
+            <h3>Escolha uma opção</h3>
+            <span class="required-pill">Obrigatório</span>
+          </div>
+          <div id="pm-variants-list" class="option-list"></div>
+        </div>
+
+        <div id="pm-addons-wrap" class="pm-group" hidden>
+          <div class="pm-group-head">
+            <h3>Adicionais</h3>
+            <span class="optional-pill">Opcional</span>
+          </div>
+          <div id="pm-addons-list" class="option-list"></div>
+        </div>
+
+        <div class="pm-group">
+          <label for="pm-notes" class="field-label">Observações do item</label>
+          <textarea id="pm-notes" rows="2" placeholder="Ex.: sem cebola, caprichar no molho, ponto ao ponto..."></textarea>
+        </div>
+      </div>
+
+      <div class="modal-footer-bar">
+        <div class="qty-stepper">
+          <button type="button" id="pm-qty-minus" aria-label="Diminuir quantidade">−</button>
+          <span id="pm-qty-val" class="tabular">1</span>
+          <button type="button" id="pm-qty-plus" aria-label="Aumentar quantidade">+</button>
+        </div>
+        <button type="button" id="pm-add-btn" class="primary-btn flex-1 t-pressable">Adicionar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Checkout / Sacola -->
+  <div id="cart-modal" class="modal-backdrop t-modal-backdrop" hidden role="dialog" aria-modal="true" aria-labelledby="cm-title">
+    <div class="modal-sheet modal-sheet-tall t-modal">
+      <div class="modal-header-bar">
+        <h2 id="cm-title">Sua Sacola</h2>
+        <button type="button" class="modal-close-inline" data-close-modal="cart-modal" aria-label="Fechar">✕</button>
+      </div>
+
+      <div class="modal-content">
+        <div id="cart-items-list" class="cart-items-list"></div>
+
+        <div id="delivery-promo-banner" class="promo-alert" hidden></div>
+
+        <div class="checkout-section">
+          <h3>Como deseja receber?</h3>
+          <div class="segmented-control">
+            <button type="button" class="seg-btn active" data-delivery-mode="delivery">Entrega</button>
+            <button type="button" class="seg-btn" data-delivery-mode="pickup">Retirar no balcão</button>
+          </div>
+
+          <div id="delivery-fields" class="form-stack">
+            <div>
+              <label for="co-neighborhood" class="field-label">Bairro / Taxa de entrega</label>
+              <select id="co-neighborhood"></select>
+            </div>
+            <div>
+              <label for="co-address" class="field-label">Endereço completo (Rua e número)</label>
+              <input type="text" id="co-address" class="t-input" placeholder="Ex.: Rua das Flores, 245" />
+            </div>
+            <div>
+              <label for="co-reference" class="field-label">Complemento / Ponto de referência</label>
+              <input type="text" id="co-reference" placeholder="Ex.: Apto 12, próximo à praça" />
+            </div>
+          </div>
+
+          <div class="form-stack">
+            <div>
+              <label for="co-customer-name" class="field-label">Seu nome</label>
+              <input type="text" id="co-customer-name" class="t-input" placeholder="Como podemos te chamar?" />
+            </div>
+          </div>
+        </div>
+
+        <div class="checkout-section">
+          <h3>Forma de pagamento</h3>
+          <div id="payment-options" class="segmented-control segmented-3">
+            <button type="button" class="seg-btn active" data-payment="Pix">Pix</button>
+            <button type="button" class="seg-btn" data-payment="Cartão na entrega">Cartão</button>
+            <button type="button" class="seg-btn" data-payment="Dinheiro">Dinheiro</button>
+          </div>
+
+          <div id="pix-info-box" class="info-box" hidden>
+            <div class="info-box-row">
+              <div>
+                <small>Chave Pix da loja</small>
+                <div id="pix-key-text" class="mono-text"></div>
+              </div>
+              <button type="button" id="btn-copy-pix" class="secondary-btn-sm t-pressable">Copiar Pix</button>
+            </div>
+          </div>
+
+          <div id="cash-change-box" class="form-stack" hidden>
+            <label for="co-cash-for" class="field-label">Precisa de troco para quanto?</label>
+            <input type="number" id="co-cash-for" class="t-input" min="0" step="0.01" placeholder="Ex.: 100" />
+            <p id="co-cash-feedback" class="field-hint tabular"></p>
+          </div>
+        </div>
+
+        <div class="totals-card">
+          <div class="totals-row">
+            <span>Subtotal</span>
+            <span id="co-subtotal" class="tabular">R$ 0,00</span>
+          </div>
+          <div class="totals-row">
+            <span>Taxa de entrega</span>
+            <span id="co-fee" class="tabular">R$ 0,00</span>
+          </div>
+          <div class="totals-row totals-row-strong">
+            <span>Total</span>
+            <span id="co-total" class="tabular">R$ 0,00</span>
+          </div>
+          <p id="co-min-order-msg" class="min-order-warning" hidden></p>
+        </div>
+
+        <details class="msg-preview-details">
+          <summary>Ver mensagem que vai pro WhatsApp</summary>
+          <pre id="co-message-preview" class="msg-preview-pre"></pre>
+        </details>
+      </div>
+
+      <div class="modal-footer-stack">
+        <button type="button" id="btn-send-whatsapp" class="whatsapp-btn t-pressable">Enviar Pedido no WhatsApp</button>
+        <button type="button" id="btn-copy-order" class="secondary-btn t-pressable">Copiar texto do pedido</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal QR Code -->
+  <div id="qr-modal" class="modal-backdrop t-modal-backdrop" hidden role="dialog" aria-modal="true" aria-labelledby="qr-title">
+    <div class="modal-sheet modal-sheet-compact t-modal">
+      <div class="modal-header-bar">
+        <h2 id="qr-title">QR Code do Cardápio</h2>
+        <button type="button" class="modal-close-inline" data-close-modal="qr-modal" aria-label="Fechar">✕</button>
+      </div>
+      <div class="modal-content qr-modal-body">
+        <p class="qr-caption">Escaneie no celular ou imprima a folha A4 para colocar nas mesas, balcão e embalagens.</p>
+        <div id="qr-svg-container" class="qr-svg-box"></div>
+        <div class="qr-modal-actions">
+          <a href="./qr-impressao.html" target="_blank" rel="noopener" class="primary-btn full-width text-center t-pressable">Abrir folha A4 para imprimir</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Oferta / Ativação da Agência -->
+  <div id="agency-modal" class="modal-backdrop t-modal-backdrop" hidden role="dialog" aria-modal="true" aria-labelledby="ag-title">
+    <div class="modal-sheet modal-sheet-compact t-modal">
+      <div class="modal-header-bar">
+        <h2 id="ag-title">Coloque este cardápio no ar</h2>
+        <button type="button" class="modal-close-inline" data-close-modal="agency-modal" aria-label="Fechar">✕</button>
+      </div>
+      <div class="modal-content">
+        <p id="ag-subtitle" class="pm-desc"></p>
+        <div id="ag-plans" class="ag-plans"></div>
+        <div class="qr-modal-actions">
+          <button type="button" id="btn-ag-copy-pitch" class="primary-btn full-width t-pressable">Copiar resumo da oferta</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <template id="qr-svg-template"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 39 39" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h39v39H0z"/><path stroke="#0f172a" d="M1 1.5h7m1 0h1m3 0h1m1 0h1m1 0h1m1 0h2m1 0h3m1 0h4m1 0h7M1 2.5h1m5 0h1m2 0h1m2 0h1m1 0h2m4 0h1m4 0h1m4 0h1m5 0h1M1 3.5h1m1 0h3m1 0h1m5 0h2m1 0h1m1 0h1m1 0h6m3 0h1m1 0h1m1 0h3m1 0h1M1 4.5h1m1 0h3m1 0h1m1 0h1m3 0h2m1 0h1m2 0h2m3 0h1m1 0h3m2 0h1m1 0h3m1 0h1M1 5.5h1m1 0h3m1 0h1m1 0h1m5 0h3m1 0h1m3 0h2m1 0h1m1 0h2m1 0h1m1 0h3m1 0h1M1 6.5h1m5 0h1m1 0h5m1 0h2m2 0h2m1 0h1m2 0h3m1 0h1m1 0h1m5 0h1M1 7.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M9 8.5h1m1 0h2m2 0h11m1 0h1m1 0h1M1 9.5h1m3 0h1m1 0h3m2 0h1m3 0h1m2 0h2m1 0h1m2 0h1m4 0h5m2 0h1M4 10.5h3m1 0h5m4 0h1m2 0h2m2 0h1m1 0h4m3 0h2m1 0h1M2 11.5h3m1 0h5m1 0h2m1 0h1m1 0h3m1 0h2m1 0h2m1 0h4m2 0h1m1 0h1M1 12.5h4m3 0h1m2 0h1m1 0h2m3 0h2m2 0h1m2 0h1m1 0h1m1 0h1m1 0h1m3 0h2M2 13.5h2m3 0h2m2 0h1m2 0h1m1 0h1m1 0h1m1 0h4m5 0h3m3 0h3M1 14.5h1m1 0h1m2 0h1m3 0h1m1 0h3m1 0h3m3 0h1m1 0h1m2 0h3m3 0h2M3 15.5h2m1 0h2m3 0h1m1 0h1m2 0h1m2 0h1m1 0h1m2 0h7m1 0h4M1 16.5h1m2 0h3m3 0h1m2 0h1m2 0h2m2 0h3m1 0h1m7 0h2m1 0h2M1 17.5h4m1 0h2m2 0h4m2 0h2m2 0h2m2 0h2m3 0h3m2 0h4M1 18.5h1m2 0h1m1 0h1m2 0h1m3 0h1m5 0h2m3 0h1m1 0h5m2 0h4M1 19.5h3m1 0h1m1 0h1m1 0h2m5 0h1m2 0h2m2 0h2m2 0h2m4 0h1m1 0h1M1 20.5h1m2 0h1m5 0h1m2 0h1m1 0h4m1 0h4m4 0h1m2 0h1m3 0h2M1 21.5h1m2 0h1m2 0h1m1 0h1m4 0h1m3 0h1m2 0h2m2 0h1m3 0h1m1 0h2m2 0h1M3 22.5h3m3 0h1m2 0h1m3 0h2m4 0h1m1 0h1m1 0h4m2 0h2M1 23.5h1m1 0h1m2 0h2m1 0h2m1 0h2m2 0h3m2 0h1m2 0h2m2 0h1m1 0h1m1 0h4M5 24.5h1m2 0h1m1 0h7m1 0h4m1 0h1m1 0h1m1 0h2m2 0h3m1 0h1m1 0h1M1 25.5h1m1 0h3m1 0h2m2 0h1m1 0h2m4 0h1m3 0h1m3 0h1m1 0h4m1 0h3M1 26.5h1m1 0h1m1 0h2m1 0h1m5 0h1m2 0h1m2 0h3m1 0h1m2 0h3m3 0h3M3 27.5h1m3 0h2m2 0h2m1 0h1m2 0h1m3 0h1m2 0h2m2 0h1m2 0h3M4 28.5h2m3 0h1m3 0h1m1 0h1m2 0h2m2 0h4m1 0h2m3 0h2m1 0h1M1 29.5h3m1 0h1m1 0h1m1 0h2m1 0h5m1 0h1m1 0h4m1 0h1m2 0h10M9 30.5h4m3 0h3m2 0h1m2 0h1m2 0h1m1 0h1m3 0h1M1 31.5h7m1 0h1m3 0h1m1 0h2m2 0h1m1 0h4m2 0h1m1 0h1m1 0h1m1 0h1m2 0h1M1 32.5h1m5 0h1m6 0h1m1 0h1m3 0h3m2 0h1m1 0h1m1 0h1m3 0h3m1 0h1M1 33.5h1m1 0h3m1 0h1m1 0h1m1 0h2m4 0h1m3 0h1m2 0h1m4 0h8M1 34.5h1m1 0h3m1 0h1m2 0h2m2 0h2m3 0h2m1 0h3m2 0h1m2 0h3m4 0h1M1 35.5h1m1 0h3m1 0h1m2 0h1m1 0h1m1 0h3m1 0h3m1 0h3m1 0h2m1 0h3M1 36.5h1m5 0h1m2 0h2m1 0h2m1 0h3m1 0h3m4 0h2m1 0h1m2 0h4M1 37.5h7m1 0h1m2 0h1m4 0h2m2 0h3m1 0h1m1 0h1m2 0h3m2 0h3"/></svg>
+</template>
+  <script id="client-data" type="application/json">{"slug":"brasa-urbana-burger","template":"delivery","showcase":true,"previewMode":true,"name":"Brasa Urbana Burger","tagline":"Smash burgers na brasa, batata crocante e entrega rápida","city":"Campinas - SP","address":"Av. Norte-Sul, 840 - Cambuí","whatsappNumber":"","pixKey":"pedidos@brasaurbana.exemplo (Pix Demo)","theme":"dark","primaryColor":"#f59e0b","accentColor":"#22c55e","coverImage":"https://www.themealdb.com/images/media/meals/44bzep1761848278.jpg","prepTime":"30–40 min","minOrder":25,"freeDeliveryAbove":85,"defaultDeliveryFee":7,"hoursSummary":"Terça a Domingo • 18:00 às 23:30","businessHours":{"timezone":"America/Sao_Paulo","schedule":{"mon":null,"tue":{"open":"18:00","close":"23:30"},"wed":{"open":"18:00","close":"23:30"},"thu":{"open":"18:00","close":"23:30"},"fri":{"open":"18:00","close":"23:59"},"sat":{"open":"18:00","close":"23:59"},"sun":{"open":"18:00","close":"23:00"}}},"neighborhoods":[{"id":"cambui","name":"Cambuí / Centro","fee":5},{"id":"taquaral","name":"Taquaral / Guanabara","fee":7},{"id":"castelo","name":"Jardim Chapadão / Castelo","fee":8},{"id":"barao","name":"Barão Geraldo","fee":12},{"id":"outros","name":"Demais bairros (a confirmar)","fee":10}],"categories":[{"id":"burgers","name":"Burgers na Brasa"},{"id":"combos","name":"Combos que Economizam"},{"id":"porcoes","name":"Porções \u0026 Entradas"},{"id":"bebidas","name":"Bebidas \u0026 Sobremesas"}],"items":[{"id":"smash-classico","categoryId":"burgers","name":"Brasa Smash Clássico","description":"Pão brioche selado na manteiga, 2 blends 90g na chapa alta, cheddar duplo e maionese da casa.","price":28.9,"tags":["Mais pedido"],"image":"https://www.themealdb.com/images/media/meals/44bzep1761848278.jpg","variants":[{"id":"duplo","name":"Duplo (180g carne)","price":28.9},{"id":"triplo","name":"Triplo (270g carne)","price":36.9}],"addons":[{"id":"bacon","name":"Bacon crocante extra","price":5.5},{"id":"cheddar","name":"Cheddar cremoso extra","price":4},{"id":"cebola","name":"Cebola caramelizada","price":3.5}]},{"id":"duplo-bacon-defumado","categoryId":"burgers","name":"Duplo Bacon Defumado","description":"Blend artesanal 160g na brasa, tiras de bacon defumado, queijo prato, picles e barbecue rústico.","price":34.9,"tags":["Campeão de vendas"],"image":"https://www.themealdb.com/images/media/meals/lgmnff1763789847.jpg","addons":[{"id":"bacon","name":"Bacon crocante extra","price":5.5},{"id":"ovo","name":"Ovo caipira na chapa","price":3}]},{"id":"crispy-chicken-club","categoryId":"burgers","name":"Crispy Chicken Club","description":"Sobrecoxa empanada super crocante, alface americana, tomate fresco e maionese de limão siciliano.","price":29.9,"tags":["Crocante"],"image":"https://www.themealdb.com/images/media/meals/vdwloy1713225718.jpg","addons":[{"id":"queijo","name":"Queijo prato extra","price":4},{"id":"molho","name":"Potinho maionese verde 50ml","price":3.5}]},{"id":"costela-brasa","categoryId":"burgers","name":"Costela Desfiada \u0026 Queijo Coalho","description":"Burger 160g coberto com costela desfiada 8h e fatia grelhada de queijo coalho no brioche.","price":39.9,"tags":["Especial"],"image":"https://www.themealdb.com/images/media/meals/k420tj1585565244.jpg","addons":[{"id":"cebola","name":"Cebola crispy","price":4}]},{"id":"combo-individual","categoryId":"combos","name":"Combo Smash Individual","description":"1 Brasa Smash Clássico Duplo + 1 Batata rústica média + 1 Refrigerante lata 350ml.","price":42.9,"tags":["Combo","Economize R$ 6"],"image":"https://www.themealdb.com/images/media/meals/44bzep1761848278.jpg","variants":[{"id":"coca","name":"Com Coca-Cola 350ml","price":42.9},{"id":"guarana","name":"Com Guaraná 350ml","price":42.9},{"id":"zero","name":"Com Refrigerante Zero 350ml","price":42.9}],"addons":[{"id":"cheddar-batata","name":"Cheddar + bacon na batata","price":7}]},{"id":"combo-casal","categoryId":"combos","name":"Combo Casal Brasa (2 Burgers)","description":"2 Burgers à escolha (Clássico ou Chicken) + Batata grande temperada + 2 bebidas lata.","price":79.9,"tags":["Combo","Mais pedido"],"image":"https://www.themealdb.com/images/media/meals/lgmnff1763789847.jpg","addons":[{"id":"brownie","name":"Adicionar Brownie p/ dividir","price":12}]},{"id":"combo-familia","categoryId":"combos","name":"Box Família (4 Burgers + Porção)","description":"4 Smash Duplos embalados individualmente + 1 Porção GG de batata com páprica e maionese da casa.","price":134.9,"tags":["Frete grátis garantido"],"image":"https://www.themealdb.com/images/media/meals/k420tj1585565244.jpg"},{"id":"batata-rustica","categoryId":"porcoes","name":"Batata Rústica com Alecrim","description":"Porção crocante finalizada com sal de parrilla, alecrim fresco e 1 maionese verde artesanal.","price":18.9,"tags":["Acompanhamento"],"image":"https://www.themealdb.com/images/media/meals/1550441882.jpg","variants":[{"id":"media","name":"Porção Média (250g)","price":18.9},{"id":"grande","name":"Porção Grande (450g)","price":27.9}],"addons":[{"id":"cheddar-bacon","name":"Cobertura cheddar \u0026 bacon","price":8}]},{"id":"tiras-frango","categoryId":"porcoes","name":"Tiras de Frango Crocantes","description":"300g de filezinhos empanados sequinhos acompanhados de molho honey mustard.","price":26.9,"image":"https://www.themealdb.com/images/media/meals/cj56fs1762340001.jpg"},{"id":"suco-tropical","categoryId":"bebidas","name":"Suco Natural Citrus \u0026 Morango 400ml","description":"Prensado na hora, gelado, sem conservantes.","price":11.9,"image":"https://www.thecocktaildb.com/images/media/drink/vuquyv1468876052.jpg"},{"id":"smoothie-frutas","categoryId":"bebidas","name":"Limonada \u0026 Frutas Vermelhas 400ml","description":"Refrescante, levemente adocicado com hortelã fresca.","price":12.9,"image":"https://www.thecocktaildb.com/images/media/drink/xwqvur1468876473.jpg"},{"id":"brownie-calda","categoryId":"bebidas","name":"Brownie Meio Amargo com Calda Quente","description":"Fatia generosa de brownie artesanal com ganache de chocolate 50%.","price":14.9,"tags":["Sobremesa"],"image":"https://www.themealdb.com/images/media/meals/tqtywx1468317395.jpg"}],"logoImage":"../../assets/logos/brasa-urbana-burger.png"}</script>
+  <script id="agency-data" type="application/json">{"brandName":"GGDevStudio","brandInitials":"GG","ownerName":"Samuel","whatsappNumber":"5521976497921","city":"Niterói, RJ","pixKey":"21976497921","baseUrl":"https://sg-devstudio.github.io/ggdevstudio","plans":{"launch":{"name":"Oferta Primeiros 3 Clientes","setupFee":297,"monthlyFee":0,"description":"Implementação completa com QR Code imprimível (vagas limitadas para portfólio)."},"start":{"name":"Plano Start","setupFee":397,"monthlyFee":0,"description":"Pagamento único. Cardápio ou página no ar em até 48h + kit de QR Code A4."},"pro":{"name":"Plano Profissional","setupFee":197,"monthlyFee":97,"description":"Implantação + suporte contínuo, trocas de preços/fotos ilimitadas e ajustes mensais."}}}</script>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

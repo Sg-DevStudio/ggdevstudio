@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GGDevStudio — Cardápios Digitais &amp; Agendamento no WhatsApp</title>
+  <meta name="description" content="Cardápio digital e página de agendamento profissional com pedido estruturado direto no WhatsApp e Kit QR Code A4 para embalagem e balcão." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./shared/transitions.css" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a href="#topo" class="brand-lockup">
+        <span id="brand-mark" class="brand-mark" aria-hidden="true">GG</span>
+        <span id="brand-name" class="brand-name">GGDevStudio</span>
+      </a>
+      <nav class="nav-links" aria-label="Navegação principal">
+        <a href="#calculadora">Calculadora</a>
+        <a href="#demos">Exemplos</a>
+        <a href="#planos">Planos</a>
+        <a href="#duvidas">Dúvidas</a>
+      </nav>
+      <button type="button" id="btn-hero-contact" class="nav-cta t-pressable">Pedir minha prévia</button>
+    </div>
+  </header>
+
+  <main id="topo">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy" data-enter>
+          <p class="hero-fact-line">
+            <span class="fact-dot" aria-hidden="true"></span>
+            Entrega em 48h úteis · Prévia grátis antes de pagar
+          </p>
+          <h1>Pedidos e horários direto no seu WhatsApp, sem taxa por venda.</h1>
+          <p class="hero-sub">
+            Criamos o cardápio próprio ou página de agendamento do seu negócio com entrega por bairro, Pix e troco já somados, além da folha A4 de QR Code para suas embalagens e balcão.
+          </p>
+          <div class="hero-actions">
+            <a href="#demos" class="btn btn-primary t-pressable">
+              <span>Ver exemplos ao vivo</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 8h9m0 0-3.5-3.5M12.5 8 9 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="#calculadora" class="btn btn-secondary t-pressable">Simular economia</a>
+          </div>
+          <p class="hero-footnote">
+            Investimento único a partir de <strong id="hero-start-price">R$ 297,00</strong> · Sem mensalidade obrigatória
+          </p>
+        </div>
+
+        <aside class="receipt-stage" data-enter="delay-1" aria-label="Exemplo real do pedido recebido no WhatsApp">
+          <div class="receipt-chrome">
+            <div class="receipt-contact">
+              <span class="receipt-avatar" aria-hidden="true">BU</span>
+              <div>
+                <strong>WhatsApp da Loja</strong>
+                <small>Pedido chega pronto para a cozinha</small>
+              </div>
+            </div>
+            <span class="receipt-fee-pill">0% comissão</span>
+          </div>
+
+          <div class="receipt-bubble">
+            <p class="receipt-title">*Novo Pedido — Brasa Urbana*</p>
+            <div class="receipt-block">
+              <span>2x Brasa Smash Duplo + Bacon</span>
+              <span>R$ 68,80</span>
+            </div>
+            <div class="receipt-line">
+              <span>Bairro Cambuí · Rua das Flores, 240</span>
+              <span>Entrega: R$ 5,00</span>
+            </div>
+            <div class="receipt-line">
+              <span>Dinheiro · Troco para R$ 100,00</span>
+              <span>Troco: R$ 26,20</span>
+            </div>
+            <div class="receipt-total-row">
+              <span>Total recebido direto por você</span>
+              <strong>R$ 73,80</strong>
+            </div>
+          </div>
+
+          <div class="receipt-bottom-bar">
+            <span>QR Code A4 incluso para sacolas e balcão</span>
+            <a href="#demos" class="inline-link">Testar agora →</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="calculadora" class="section section-alt">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-label">Simulador financeiro</span>
+          <h2>Quanto fica na mesa todo mês pagando comissão de aplicativo?</h2>
+          <p>Ajuste seus números reais abaixo para ver quanto retorna ao caixa migrando clientes recorrentes com o QR Code na embalagem.</p>
+        </div>
+
+        <div class="calc-grid">
+          <div class="calc-controls card">
+            <div class="slider-group">
+              <div class="slider-head">
+                <label for="calc-revenue">Vendas mensais pelos aplicativos</label>
+                <strong id="calc-revenue-val" class="tabular">R$ 10.000,00</strong>
+              </div>
+              <input type="range" id="calc-revenue" min="2000" max="40000" step="500" value="10000" />
+            </div>
+
+            <div class="slider-group">
+              <div class="slider-head">
+                <label for="calc-fee">Comissão média cobrada pelo aplicativo</label>
+                <strong id="calc-fee-val" class="tabular">22%</strong>
+              </div>
+              <input type="range" id="calc-fee" min="12" max="30" step="1" value="22" />
+            </div>
+
+            <div class="slider-group">
+              <div class="slider-head">
+                <label for="calc-migrated">Clientes que voltam direto via QR Code</label>
+                <strong id="calc-migrated-val" class="tabular">35%</strong>
+              </div>
+              <input type="range" id="calc-migrated" min="10" max="60" step="5" value="35" />
+            </div>
+          </div>
+
+          <div class="calc-results card">
+            <div class="calc-metric calc-metric-loss">
+              <small>Comissão paga hoje</small>
+              <strong id="calc-monthly-loss" class="tabular">R$ 2.200,00</strong>
+              <span id="calc-annual-loss" class="tabular">R$ 26.400,00 por ano</span>
+            </div>
+
+            <div class="calc-metric calc-metric-gain">
+              <small>Economia estimada no pedido direto</small>
+              <strong id="calc-monthly-saved" class="tabular">R$ 770,00 / mês</strong>
+              <span id="calc-annual-saved" class="tabular">R$ 9.240,00 por ano no seu caixa</span>
+            </div>
+
+            <div class="calc-payback">
+              <span>Retorno do Plano Start</span>
+              <strong id="calc-payback" class="tabular">Se paga em ~16 dias</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="demos" class="section">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-label">Exemplos reais</span>
+          <h2>Teste a experiência do seu cliente no celular</h2>
+          <p>Abra qualquer modelo abaixo para simular escolhas, adicionais, troco no checkout e a folha A4 com QR Code pronto para impressão.</p>
+        </div>
+
+        <div id="showcase-grid" class="showcase-grid"></div>
+      </div>
+    </section>
+
+    <section id="planos" class="section section-alt">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-label">Investimento claro</span>
+          <h2>Você aprova a prévia antes de pagar a entrada</h2>
+          <p>Montamos um rascunho navegável com o nome e os itens do seu negócio. O pagamento só começa depois da aprovação.</p>
+        </div>
+
+        <div id="plans-grid" class="plans-grid"></div>
+      </div>
+    </section>
+
+    <section id="duvidas" class="section">
+      <div class="container faq-wrap">
+        <div class="section-head">
+          <span class="section-label">Perguntas comuns</span>
+          <h2>Como funciona na prática</h2>
+        </div>
+
+        <div class="faq-list">
+          <details class="faq-item" open>
+            <summary>Preciso sair do iFood ou de outros aplicativos?</summary>
+            <p>Não. Os aplicativos continuam trazendo clientes novos; o QR Code impresso vai dentro da sacola convidando quem já comprou a fazer o segundo pedido direto pelo seu link, onde não há comissão.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Como funciona a prévia antes de contratar?</summary>
+            <p>Preparamos uma prévia real com o nome do seu estabelecimento e seus principais itens para você testar no próprio celular. Só iniciamos a cobrança (50% entrada / 50% entrega) após sua aprovação.</p>
+          </details>
+          <details class="faq-item">
+            <summary>E se meus preços ou horários mudarem depois?</summary>
+            <p>No Plano Start você recebe tudo publicado e solicita ajustes pontuais quando precisar. No Plano Profissional, atualizações mensais de preços, itens e banners ficam incluídas por WhatsApp.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Qual o prazo para ficar no ar?</summary>
+            <p>Até 48 horas úteis após você enviar a lista de itens/serviços, horários e taxas de entrega.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <strong id="footer-brand">SG Digital</strong>
+        <p id="footer-city">Cardápios Digitais &amp; Agendamento Direto no WhatsApp</p>
+      </div>
+      <button type="button" id="btn-footer-cta" class="btn btn-primary t-pressable">Solicitar prévia no WhatsApp</button>
+    </div>
+  </footer>
+
+  <!-- Modal fallback quando whatsappNumber estiver vazio -->
+  <div id="contact-modal" class="modal-backdrop t-modal-backdrop" hidden role="dialog" aria-modal="true" aria-labelledby="cm-title">
+    <div class="modal-card t-modal">
+      <div class="modal-head">
+        <h3 id="cm-title">Solicitar prévia personalizada</h3>
+        <button type="button" id="btn-close-contact" class="close-btn" aria-label="Fechar">✕</button>
+      </div>
+      <p id="contact-modal-desc" class="modal-desc"></p>
+      <button type="button" id="btn-copy-contact-msg" class="btn btn-primary full-width t-pressable">Copiar mensagem pronta</button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <script id="agency-data" type="application/json">{"brandName":"GGDevStudio","brandInitials":"GG","ownerName":"Samuel","whatsappNumber":"5521976497921","city":"Niterói, RJ","pixKey":"21976497921","baseUrl":"https://sg-devstudio.github.io/ggdevstudio","plans":{"launch":{"name":"Oferta Primeiros 3 Clientes","setupFee":297,"monthlyFee":0,"description":"Implementação completa com QR Code imprimível (vagas limitadas para portfólio)."},"start":{"name":"Plano Start","setupFee":397,"monthlyFee":0,"description":"Pagamento único. Cardápio ou página no ar em até 48h + kit de QR Code A4."},"pro":{"name":"Plano Profissional","setupFee":197,"monthlyFee":97,"description":"Implantação + suporte contínuo, trocas de preços/fotos ilimitadas e ajustes mensais."}}}</script>
+  <script id="showcase-data" type="application/json">[{"slug":"brasa-urbana-burger","template":"delivery","name":"Brasa Urbana Burger","tagline":"Smash burgers na brasa, batata crocante e entrega rápida","city":"Campinas - SP","primaryColor":"#f59e0b","coverImage":"https://www.themealdb.com/images/media/meals/44bzep1761848278.jpg","logoImage":"./assets/logos/brasa-urbana-burger.png"},{"slug":"sabor-da-casa-marmitaria","template":"delivery","name":"Sabor da Casa Marmitaria","tagline":"Comida caseira feita no dia, opções tradicionais e linha Fit equilibrada","city":"Ribeirão Preto - SP","primaryColor":"#ea580c","coverImage":"https://www.themealdb.com/images/media/meals/j8c1d51782772399.jpg","logoImage":"./assets/logos/sabor-da-casa-marmitaria.png"},{"slug":"studio-prime-barbearia","template":"servicos","name":"Studio Prime Barbearia","tagline":"Corte masculino, barba na navalha com toalha quente e atendimento sem espera","city":"Sorocaba - SP","primaryColor":"#d97706","coverImage":"./assets/covers/studio-prime-barbearia.png","logoImage":"./assets/logos/studio-prime-barbearia.png"}]</script>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

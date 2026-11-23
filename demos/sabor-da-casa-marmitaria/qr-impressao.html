@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kit QR Code A4 — Sabor da Casa Marmitaria</title>
+  <style>
+    :root {
+      --primary: #ea580c;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #e2e8f0;
+      color: #0f172a;
+      font-family: 'Segoe UI', -apple-system, sans-serif;
+    }
+    .toolbar {
+      max-width: 210mm;
+      margin: 0 auto 16px;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 12px 16px;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .toolbar p { margin: 0; font-size: 0.9rem; }
+    .toolbar-actions { display: flex; gap: 8px; }
+    .btn {
+      border: none;
+      border-radius: 8px;
+      padding: 9px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 0.86rem;
+    }
+    .btn-primary { background: var(--primary); color: #ffffff; }
+    .btn-ghost { background: #334155; color: #ffffff; }
+
+    .a4-sheet {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 12mm;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 8mm;
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.16);
+    }
+    .qr-card {
+      border: 2px dashed #94a3b8;
+      border-radius: 14px;
+      padding: 10mm 8mm;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      text-align: center;
+      position: relative;
+    }
+    .qr-badge {
+      background: var(--primary);
+      color: #ffffff;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .qr-card h2 {
+      margin: 8px 0 2px;
+      font-size: 1.25rem;
+      font-weight: 800;
+    }
+    .qr-card p {
+      margin: 0;
+      font-size: 0.88rem;
+      color: #334155;
+    }
+    .qr-svg-wrap {
+      width: 48mm;
+      height: 48mm;
+      padding: 3mm;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      margin: 8px 0;
+      background: #ffffff;
+    }
+    .qr-svg-wrap svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .qr-cta {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #0f172a;
+      max-width: 68mm;
+    }
+    .qr-url {
+      font-size: 0.7rem;
+      color: #64748b;
+      word-break: break-all;
+      margin-top: 4px;
+    }
+    @media print {
+      body { background: #ffffff; padding: 0; }
+      .toolbar { display: none; }
+      .a4-sheet { box-shadow: none; margin: 0; }
+    }
+    @media (max-width: 820px) {
+      .a4-sheet {
+        width: 100%;
+        min-height: auto;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        padding: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <p><strong>Kit A4 Pronto:</strong> 4 cartões com linha de corte para balcão, mesas ou sacolas de delivery.</p>
+    <div class="toolbar-actions">
+      <a href="./" class="btn btn-ghost">← Voltar ao cardápio</a>
+      <button type="button" onclick="window.print()" class="btn btn-primary">🖨️ Imprimir / Salvar PDF</button>
+    </div>
+  </div>
+
+  <main class="a4-sheet">
+    <article class="qr-card">
+      <span class="qr-badge">CARDÁPIO OFICIAL</span>
+      <div>
+        <h2>Sabor da Casa Marmitaria</h2>
+        <p>Comida caseira feita no dia, opções tradicionais e linha Fit equilibrada</p>
+      </div>
+      <div class="qr-svg-wrap"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 39 39" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h39v39H0z"/><path stroke="#0f172a" d="M1 1.5h7m3 0h2m1 0h1m1 0h1m7 0h1m4 0h1m1 0h7M1 2.5h1m5 0h1m3 0h1m1 0h1m3 0h1m3 0h2m4 0h3m1 0h1m5 0h1M1 3.5h1m1 0h3m1 0h1m1 0h2m1 0h2m1 0h1m3 0h1m2 0h1m5 0h2m1 0h1m1 0h3m1 0h1M1 4.5h1m1 0h3m1 0h1m1 0h4m2 0h4m4 0h5m1 0h1m1 0h1m1 0h3m1 0h1M1 5.5h1m1 0h3m1 0h1m1 0h2m3 0h8m1 0h2m2 0h1m1 0h1m1 0h1m1 0h3m1 0h1M1 6.5h1m5 0h1m1 0h2m1 0h1m1 0h2m2 0h1m2 0h2m2 0h2m1 0h2m1 0h1m5 0h1M1 7.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M9 8.5h1m2 0h1m2 0h1m1 0h7m3 0h1M1 9.5h1m1 0h5m2 0h2m1 0h2m1 0h2m5 0h1m1 0h4m2 0h5M1 10.5h1m1 0h3m5 0h2m1 0h1m1 0h1m2 0h1m1 0h4m7 0h1m3 0h1M3 11.5h1m1 0h3m1 0h3m3 0h3m2 0h1m1 0h2m1 0h1m1 0h3m1 0h2m3 0h2M1 12.5h1m1 0h2m5 0h2m2 0h3m3 0h6m1 0h2m1 0h1m6 0h1M4 13.5h2m1 0h1m3 0h1m1 0h1m1 0h2m1 0h1m1 0h1m2 0h1m2 0h12M3 14.5h1m2 0h1m1 0h1m2 0h5m1 0h1m2 0h3m1 0h1m4 0h1m2 0h1M2 15.5h1m3 0h2m3 0h2m1 0h1m1 0h2m1 0h1m1 0h3m4 0h1m2 0h4m1 0h2M1 16.5h2m1 0h2m2 0h1m7 0h1m3 0h3m2 0h1m1 0h1m1 0h1m2 0h2m3 0h1M2 17.5h2m2 0h2m2 0h3m2 0h1m3 0h1m3 0h2m1 0h3m1 0h2m1 0h1m1 0h3M1 18.5h1m2 0h1m4 0h3m1 0h1m2 0h2m4 0h1m1 0h1m2 0h1m1 0h1m2 0h1m2 0h2M1 19.5h1m1 0h1m2 0h6m1 0h3m2 0h1m2 0h1m5 0h2m1 0h4m2 0h2M1 20.5h2m1 0h1m3 0h1m2 0h3m3 0h1m1 0h4m2 0h1m2 0h3m6 0h1M2 21.5h3m2 0h3m1 0h5m2 0h1m1 0h1m4 0h5m1 0h1m1 0h3M2 22.5h1m1 0h3m1 0h2m2 0h1m4 0h2m1 0h3m1 0h1m4 0h1m4 0h1M1 23.5h1m1 0h1m3 0h1m2 0h3m2 0h2m1 0h1m2 0h2m3 0h1m1 0h3m1 0h3m1 0h2M2 24.5h1m1 0h1m3 0h1m1 0h4m2 0h9m2 0h4m1 0h2m2 0h1M1 25.5h1m1 0h1m1 0h3m2 0h1m1 0h1m3 0h2m2 0h1m2 0h1m1 0h4m1 0h4m1 0h2M1 26.5h2m1 0h1m1 0h1m2 0h6m1 0h1m2 0h2m2 0h2m1 0h1m2 0h2m1 0h1m2 0h1M1 27.5h1m1 0h3m1 0h1m4 0h8m1 0h1m1 0h1m4 0h3m1 0h2m1 0h3M1 28.5h1m3 0h1m4 0h1m1 0h1m1 0h3m5 0h1m4 0h7M1 29.5h1m3 0h6m1 0h3m1 0h1m1 0h1m4 0h5m1 0h5m1 0h1M9 30.5h2m1 0h1m1 0h2m1 0h1m2 0h1m1 0h1m1 0h1m3 0h2m3 0h2M1 31.5h7m2 0h2m4 0h2m1 0h1m1 0h1m3 0h1m3 0h1m1 0h1m1 0h1m1 0h1m1 0h1M1 32.5h1m5 0h1m1 0h1m2 0h1m1 0h1m1 0h2m2 0h3m1 0h1m2 0h1m1 0h1m3 0h2m1 0h1M1 33.5h1m1 0h3m1 0h1m1 0h1m2 0h2m2 0h1m2 0h2m2 0h4m1 0h6m1 0h2M1 34.5h1m1 0h3m1 0h1m1 0h2m3 0h1m1 0h2m2 0h2m2 0h1m1 0h1m1 0h1m1 0h2m1 0h2m2 0h1M1 35.5h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h2m5 0h2m3 0h2m7 0h3M1 36.5h1m5 0h1m4 0h1m2 0h1m1 0h1m1 0h1m2 0h2m3 0h3m1 0h1m1 0h2m2 0h1M1 37.5h7m1 0h1m1 0h5m1 0h2m1 0h1m2 0h4m1 0h1m4 0h5"/></svg>
+</div>
+      <div>
+        <div class="qr-cta">Peça direto pelo nosso cardápio no WhatsApp — mais rápido e sem taxas!</div>
+        <div class="qr-url">https://sg-devstudio.github.io/ggdevstudio/demos/sabor-da-casa-marmitaria/</div>
+      </div>
+    </article>
+
+    <article class="qr-card">
+      <span class="qr-badge">CARDÁPIO OFICIAL</span>
+      <div>
+        <h2>Sabor da Casa Marmitaria</h2>
+        <p>Comida caseira feita no dia, opções tradicionais e linha Fit equilibrada</p>
+      </div>
+      <div class="qr-svg-wrap"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 39 39" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h39v39H0z"/><path stroke="#0f172a" d="M1 1.5h7m3 0h2m1 0h1m1 0h1m7 0h1m4 0h1m1 0h7M1 2.5h1m5 0h1m3 0h1m1 0h1m3 0h1m3 0h2m4 0h3m1 0h1m5 0h1M1 3.5h1m1 0h3m1 0h1m1 0h2m1 0h2m1 0h1m3 0h1m2 0h1m5 0h2m1 0h1m1 0h3m1 0h1M1 4.5h1m1 0h3m1 0h1m1 0h4m2 0h4m4 0h5m1 0h1m1 0h1m1 0h3m1 0h1M1 5.5h1m1 0h3m1 0h1m1 0h2m3 0h8m1 0h2m2 0h1m1 0h1m1 0h1m1 0h3m1 0h1M1 6.5h1m5 0h1m1 0h2m1 0h1m1 0h2m2 0h1m2 0h2m2 0h2m1 0h2m1 0h1m5 0h1M1 7.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M9 8.5h1m2 0h1m2 0h1m1 0h7m3 0h1M1 9.5h1m1 0h5m2 0h2m1 0h2m1 0h2m5 0h1m1 0h4m2 0h5M1 10.5h1m1 0h3m5 0h2m1 0h1m1 0h1m2 0h1m1 0h4m7 0h1m3 0h1M3 11.5h1m1 0h3m1 0h3m3 0h3m2 0h1m1 0h2m1 0h1m1 0h3m1 0h2m3 0h2M1 12.5h1m1 0h2m5 0h2m2 0h3m3 0h6m1 0h2m1 0h1m6 0h1M4 13.5h2m1 0h1m3 0h1m1 0h1m1 0h2m1 0h1m1 0h1m2 0h1m2 0h12M3 14.5h1m2 0h1m1 0h1m2 0h5m1 0h1m2 0h3m1 0h1m4 0h1m2 0h1M2 15.5h1m3 0h2m3 0h2m1 0h1m1 0h2m1 0h1m1 0h3m4 0h1m2 0h4m1 0h2M1 16.5h2m1 0h2m2 0h1m7 0h1m3 0h3m2 0h1m1 0h1m1 0h1m2 0h2m3 0h1M2 17.5h2m2 0h2m2 0h3m2 0h1m3 0h1m3 0h2m1 0h3m1 0h2m1 0h1m1 0h3M1 18.5h1m2 0h1m4 0h3m1 0h1m2 0h2m4 0h1m1 0h1m2 0h1m1 0h1m2 0h1m2 0h2M1 19.5h1m1 0h1m2 0h6m1 0h3m2 0h1m2 0h1m5 0h2m1 0h4m2 0h2M1 20.5h2m1 0h1m3 0h1m2 0h3m3 0h1m1 0h4m2 0h1m2 0h3m6 0h1M2 21.5h3m2 0h3m1 0h5m2 0h1m1 0h1m4 0h5m1 0h1m1 0h3M2 22.5h1m1 0h3m1 0h2m2 0h1m4 0h2m1 0h3m1 0h1m4 0h1m4 0h1M1 23.5h1m1 0h1m3 0h1m2 0h3m2 0h2m1 0h1m2 0h2m3 0h1m1 0h3m1 0h3m1 0h2M2 24.5h1m1 0h1m3 0h1m1 0h4m2 0h9m2 0h4m1 0h2m2 0h1M1 25.5h1m1 0h1m1 0h3m2 0h1m1 0h1m3 0h2m2 0h1m2 0h1m1 0h4m1 0h4m1 0h2M1 26.5h2m1 0h1m1 0h1m2 0h6m1 0h1m2 0h2m2 0h2m1 0h1m2 0h2m1 0h1m2 0h1M1 27.5h1m1 0h3m1 0h1m4 0h8m1 0h1m1 0h1m4 0h3m1 0h2m1 0h3M1 28.5h1m3 0h1m4 0h1m1 0h1m1 0h3m5 0h1m4 0h7M1 29.5h1m3 0h6m1 0h3m1 0h1m1 0h1m4 0h5m1 0h5m1 0h1M9 30.5h2m1 0h1m1 0h2m1 0h1m2 0h1m1 0h1m1 0h1m3 0h2m3 0h2M1 31.5h7m2 0h2m4 0h2m1 0h1m1 0h1m3 0h1m3 0h1m1 0h1m1 0h1m1 0h1m1 0h1M1 32.5h1m5 0h1m1 0h1m2 0h1m1 0h1m1 0h2m2 0h3m1 0h1m2 0h1m1 0h1m3 0h2m1 0h1M1 33.5h1m1 0h3m1 0h1m1 0h1m2 0h2m2 0h1m2 0h2m2 0h4m1 0h6m1 0h2M1 34.5h1m1 0h3m1 0h1m1 0h2m3 0h1m1 0h2m2 0h2m2 0h1m1 0h1m1 0h1m1 0h2m1 0h2m2 0h1M1 35.5h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h2m5 0h2m3 0h2m7 0h3M1 36.5h1m5 0h1m4 0h1m2 0h1m1 0h1m1 0h1m2 0h2m3 0h3m1 0h1m1 0h2m2 0h1M1 37.5h7m1 0h1m1 0h5m1 0h2m1 0h1m2 0h4m1 0h1m4 0h5"/></svg>
+</div>
+      <div>
+        <div class="qr-cta">Peça direto pelo nosso cardápio no WhatsApp — mais rápido e sem taxas!</div>
+        <div class="qr-url">https://sg-devstudio.github.io/ggdevstudio/demos/sabor-da-casa-marmitaria/</div>
+      </div>
+    </article>
+
+    <article class="qr-card">
+      <span class="qr-badge">CARDÁPIO OFICIAL</span>
+      <div>
+        <h2>Sabor da Casa Marmitaria</h2>
+        <p>Comida caseira feita no dia, opções tradicionais e linha Fit equilibrada</p>
+      </div>
+      <div class="qr-svg-wrap"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 39 39" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h39v39H0z"/><path stroke="#0f172a" d="M1 1.5h7m3 0h2m1 0h1m1 0h1m7 0h1m4 0h1m1 0h7M1 2.5h1m5 0h1m3 0h1m1 0h1m3 0h1m3 0h2m4 0h3m1 0h1m5 0h1M1 3.5h1m1 0h3m1 0h1m1 0h2m1 0h2m1 0h1m3 0h1m2 0h1m5 0h2m1 0h1m1 0h3m1 0h1M1 4.5h1m1 0h3m1 0h1m1 0h4m2 0h4m4 0h5m1 0h1m1 0h1m1 0h3m1 0h1M1 5.5h1m1 0h3m1 0h1m1 0h2m3 0h8m1 0h2m2 0h1m1 0h1m1 0h1m1 0h3m1 0h1M1 6.5h1m5 0h1m1 0h2m1 0h1m1 0h2m2 0h1m2 0h2m2 0h2m1 0h2m1 0h1m5 0h1M1 7.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M9 8.5h1m2 0h1m2 0h1m1 0h7m3 0h1M1 9.5h1m1 0h5m2 0h2m1 0h2m1 0h2m5 0h1m1 0h4m2 0h5M1 10.5h1m1 0h3m5 0h2m1 0h1m1 0h1m2 0h1m1 0h4m7 0h1m3 0h1M3 11.5h1m1 0h3m1 0h3m3 0h3m2 0h1m1 0h2m1 0h1m1 0h3m1 0h2m3 0h2M1 12.5h1m1 0h2m5 0h2m2 0h3m3 0h6m1 0h2m1 0h1m6 0h1M4 13.5h2m1 0h1m3 0h1m1 0h1m1 0h2m1 0h1m1 0h1m2 0h1m2 0h12M3 14.5h1m2 0h1m1 0h1m2 0h5m1 0h1m2 0h3m1 0h1m4 0h1m2 0h1M2 15.5h1m3 0h2m3 0h2m1 0h1m1 0h2m1 0h1m1 0h3m4 0h1m2 0h4m1 0h2M1 16.5h2m1 0h2m2 0h1m7 0h1m3 0h3m2 0h1m1 0h1m1 0h1m2 0h2m3 0h1M2 17.5h2m2 0h2m2 0h3m2 0h1m3 0h1m3 0h2m1 0h3m1 0h2m1 0h1m1 0h3M1 18.5h1m2 0h1m4 0h3m1 0h1m2 0h2m4 0h1m1 0h1m2 0h1m1 0h1m2 0h1m2 0h2M1 19.5h1m1 0h1m2 0h6m1 0h3m2 0h1m2 0h1m5 0h2m1 0h4m2 0h2M1 20.5h2m1 0h1m3 0h1m2 0h3m3 0h1m1 0h4m2 0h1m2 0h3m6 0h1M2 21.5h3m2 0h3m1 0h5m2 0h1m1 0h1m4 0h5m1 0h1m1 0h3M2 22.5h1m1 0h3m1 0h2m2 0h1m4 0h2m1 0h3m1 0h1m4 0h1m4 0h1M1 23.5h1m1 0h1m3 0h1m2 0h3m2 0h2m1 0h1m2 0h2m3 0h1m1 0h3m1 0h3m1 0h2M2 24.5h1m1 0h1m3 0h1m1 0h4m2 0h9m2 0h4m1 0h2m2 0h1M1 25.5h1m1 0h1m1 0h3m2 0h1m1 0h1m3 0h2m2 0h1m2 0h1m1 0h4m1 0h4m1 0h2M1 26.5h2m1 0h1m1 0h1m2 0h6m1 0h1m2 0h2m2 0h2m1 0h1m2 0h2m1 0h1m2 0h1M1 27.5h1m1 0h3m1 0h1m4 0h8m1 0h1m1 0h1m4 0h3m1 0h2m1 0h3M1 28.5h1m3 0h1m4 0h1m1 0h1m1 0h3m5 0h1m4 0h7M1 29.5h1m3 0h6m1 0h3m1 0h1m1 0h1m4 0h5m1 0h5m1 0h1M9 30.5h2m1 0h1m1 0h2m1 0h1m2 0h1m1 0h1m1 0h1m3 0h2m3 0h2M1 31.5h7m2 0h2m4 0h2m1 0h1m1 0h1m3 0h1m3 0h1m1 0h1m1 0h1m1 0h1m1 0h1M1 32.5h1m5 0h1m1 0h1m2 0h1m1 0h1m1 0h2m2 0h3m1 0h1m2 0h1m1 0h1m3 0h2m1 0h1M1 33.5h1m1 0h3m1 0h1m1 0h1m2 0h2m2 0h1m2 0h2m2 0h4m1 0h6m1 0h2M1 34.5h1m1 0h3m1 0h1m1 0h2m3 0h1m1 0h2m2 0h2m2 0h1m1 0h1m1 0h1m1 0h2m1 0h2m2 0h1M1 35.5h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h2m5 0h2m3 0h2m7 0h3M1 36.5h1m5 0h1m4 0h1m2 0h1m1 0h1m1 0h1m2 0h2m3 0h3m1 0h1m1 0h2m2 0h1M1 37.5h7m1 0h1m1 0h5m1 0h2m1 0h1m2 0h4m1 0h1m4 0h5"/></svg>
+</div>
+      <div>
+        <div class="qr-cta">Peça direto pelo nosso cardápio no WhatsApp — mais rápido e sem taxas!</div>
+        <div class="qr-url">https://sg-devstudio.github.io/ggdevstudio/demos/sabor-da-casa-marmitaria/</div>
+      </div>
+    </article>
+
+    <article class="qr-card">
+      <span class="qr-badge">CARDÁPIO OFICIAL</span>
+      <div>
+        <h2>Sabor da Casa Marmitaria</h2>
+        <p>Comida caseira feita no dia, opções tradicionais e linha Fit equilibrada</p>
+      </div>
+      <div class="qr-svg-wrap"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 39 39" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h39v39H0z"/><path stroke="#0f172a" d="M1 1.5h7m3 0h2m1 0h1m1 0h1m7 0h1m4 0h1m1 0h7M1 2.5h1m5 0h1m3 0h1m1 0h1m3 0h1m3 0h2m4 0h3m1 0h1m5 0h1M1 3.5h1m1 0h3m1 0h1m1 0h2m1 0h2m1 0h1m3 0h1m2 0h1m5 0h2m1 0h1m1 0h3m1 0h1M1 4.5h1m1 0h3m1 0h1m1 0h4m2 0h4m4 0h5m1 0h1m1 0h1m1 0h3m1 0h1M1 5.5h1m1 0h3m1 0h1m1 0h2m3 0h8m1 0h2m2 0h1m1 0h1m1 0h1m1 0h3m1 0h1M1 6.5h1m5 0h1m1 0h2m1 0h1m1 0h2m2 0h1m2 0h2m2 0h2m1 0h2m1 0h1m5 0h1M1 7.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M9 8.5h1m2 0h1m2 0h1m1 0h7m3 0h1M1 9.5h1m1 0h5m2 0h2m1 0h2m1 0h2m5 0h1m1 0h4m2 0h5M1 10.5h1m1 0h3m5 0h2m1 0h1m1 0h1m2 0h1m1 0h4m7 0h1m3 0h1M3 11.5h1m1 0h3m1 0h3m3 0h3m2 0h1m1 0h2m1 0h1m1 0h3m1 0h2m3 0h2M1 12.5h1m1 0h2m5 0h2m2 0h3m3 0h6m1 0h2m1 0h1m6 0h1M4 13.5h2m1 0h1m3 0h1m1 0h1m1 0h2m1 0h1m1 0h1m2 0h1m2 0h12M3 14.5h1m2 0h1m1 0h1m2 0h5m1 0h1m2 0h3m1 0h1m4 0h1m2 0h1M2 15.5h1m3 0h2m3 0h2m1 0h1m1 0h2m1 0h1m1 0h3m4 0h1m2 0h4m1 0h2M1 16.5h2m1 0h2m2 0h1m7 0h1m3 0h3m2 0h1m1 0h1m1 0h1m2 0h2m3 0h1M2 17.5h2m2 0h2m2 0h3m2 0h1m3 0h1m3 0h2m1 0h3m1 0h2m1 0h1m1 0h3M1 18.5h1m2 0h1m4 0h3m1 0h1m2 0h2m4 0h1m1 0h1m2 0h1m1 0h1m2 0h1m2 0h2M1 19.5h1m1 0h1m2 0h6m1 0h3m2 0h1m2 0h1m5 0h2m1 0h4m2 0h2M1 20.5h2m1 0h1m3 0h1m2 0h3m3 0h1m1 0h4m2 0h1m2 0h3m6 0h1M2 21.5h3m2 0h3m1 0h5m2 0h1m1 0h1m4 0h5m1 0h1m1 0h3M2 22.5h1m1 0h3m1 0h2m2 0h1m4 0h2m1 0h3m1 0h1m4 0h1m4 0h1M1 23.5h1m1 0h1m3 0h1m2 0h3m2 0h2m1 0h1m2 0h2m3 0h1m1 0h3m1 0h3m1 0h2M2 24.5h1m1 0h1m3 0h1m1 0h4m2 0h9m2 0h4m1 0h2m2 0h1M1 25.5h1m1 0h1m1 0h3m2 0h1m1 0h1m3 0h2m2 0h1m2 0h1m1 0h4m1 0h4m1 0h2M1 26.5h2m1 0h1m1 0h1m2 0h6m1 0h1m2 0h2m2 0h2m1 0h1m2 0h2m1 0h1m2 0h1M1 27.5h1m1 0h3m1 0h1m4 0h8m1 0h1m1 0h1m4 0h3m1 0h2m1 0h3M1 28.5h1m3 0h1m4 0h1m1 0h1m1 0h3m5 0h1m4 0h7M1 29.5h1m3 0h6m1 0h3m1 0h1m1 0h1m4 0h5m1 0h5m1 0h1M9 30.5h2m1 0h1m1 0h2m1 0h1m2 0h1m1 0h1m1 0h1m3 0h2m3 0h2M1 31.5h7m2 0h2m4 0h2m1 0h1m1 0h1m3 0h1m3 0h1m1 0h1m1 0h1m1 0h1m1 0h1M1 32.5h1m5 0h1m1 0h1m2 0h1m1 0h1m1 0h2m2 0h3m1 0h1m2 0h1m1 0h1m3 0h2m1 0h1M1 33.5h1m1 0h3m1 0h1m1 0h1m2 0h2m2 0h1m2 0h2m2 0h4m1 0h6m1 0h2M1 34.5h1m1 0h3m1 0h1m1 0h2m3 0h1m1 0h2m2 0h2m2 0h1m1 0h1m1 0h1m1 0h2m1 0h2m2 0h1M1 35.5h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h2m5 0h2m3 0h2m7 0h3M1 36.5h1m5 0h1m4 0h1m2 0h1m1 0h1m1 0h1m2 0h2m3 0h3m1 0h1m1 0h2m2 0h1M1 37.5h7m1 0h1m1 0h5m1 0h2m1 0h1m2 0h4m1 0h1m4 0h5"/></svg>
+</div>
+      <div>
+        <div class="qr-cta">Peça direto pelo nosso cardápio no WhatsApp — mais rápido e sem taxas!</div>
+        <div class="qr-url">https://sg-devstudio.github.io/ggdevstudio/demos/sabor-da-casa-marmitaria/</div>
+      </div>
+    </article>
+  </main>
+</body>
+</html>

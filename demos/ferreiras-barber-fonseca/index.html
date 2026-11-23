@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#c69b59" />
+  <title>Ferreira's Barber Shop — Agendamento</title>
+  <meta name="description" content="Prévia demonstrativa · Agendamento rápido pelo WhatsApp para clientes do Fonseca (valores ilustrativos)" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../shared/transitions.css" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div id="preview-banner" class="preview-banner" hidden>
+    <div class="preview-banner-inner">
+      <div class="preview-banner-text">
+        <span class="preview-dot" aria-hidden="true"></span>
+        <span>Prévia exclusiva para <strong id="preview-client-name"></strong> · Agendamento no WhatsApp</span>
+      </div>
+      <button type="button" id="btn-activate-preview" class="preview-cta-btn t-pressable">Quero ativar</button>
+    </div>
+  </div>
+
+  <main class="service-shell">
+    <header class="hero-card" data-enter>
+      <div class="hero-cover">
+        <img id="hero-cover-img" alt="Capa do espaço" class="hero-cover-img" />
+        <div class="hero-cover-pattern"></div>
+        <div class="hero-top-actions">
+          <a href="../../" class="icon-pill t-pressable">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M12.5 8h-9m0 0L7 4.5M3.5 8 7 11.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Vitrine</span>
+          </a>
+          <button type="button" id="btn-open-qr" class="icon-pill t-pressable">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.5 2.5h4v4h-4v-4Zm7 0h4v4h-4v-4Zm-7 7h4v4h-4v-4Zm7 2h2m2-2v4m-4 0h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>QR Balcão</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-body">
+        <div class="hero-brand-row">
+          <div id="studio-monogram" class="studio-monogram" aria-hidden="true"></div>
+          <div>
+            <h1 id="studio-name" class="studio-name"></h1>
+            <p id="studio-tagline" class="studio-tagline"></p>
+          </div>
+        </div>
+
+        <div class="hero-badges">
+          <span id="status-badge" class="badge badge-status"></span>
+          <span id="rating-badge" class="badge" hidden></span>
+          <span id="city-badge" class="badge" hidden></span>
+        </div>
+
+        <div class="hero-address-row">
+          <p id="studio-address" class="studio-meta"></p>
+          <a id="btn-maps-link" class="maps-link" target="_blank" rel="noopener" hidden>Ver no Mapa ↗</a>
+        </div>
+      </div>
+    </header>
+
+    <section id="professionals-section" class="section-block" data-enter="delay-1" hidden>
+      <div class="section-head">
+        <h2>Escolha o profissional</h2>
+        <span class="section-hint">Opcional</span>
+      </div>
+      <div id="professionals-list" class="professionals-grid"></div>
+    </section>
+
+    <section class="section-block" data-enter="delay-1">
+      <div class="section-head">
+        <h2>Escolha seus serviços</h2>
+        <span class="section-hint">Toque para selecionar 1 ou mais</span>
+      </div>
+      <div id="service-category-pills" class="category-pills"></div>
+      <div id="services-list" class="services-list"></div>
+    </section>
+
+    <section id="reviews-section" class="section-block" hidden>
+      <div class="section-head">
+        <h2>Avaliações de clientes</h2>
+      </div>
+      <div id="reviews-list" class="reviews-list"></div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-head">
+        <h2 id="hours-section-title">Horários de atendimento</h2>
+      </div>
+      <div id="hours-card" class="hours-card"></div>
+    </section>
+
+    <footer class="studio-footer">
+      Agendamento direto pelo WhatsApp · <a href="../../" id="footer-agency-link">Feito com GGDevStudio</a>
+    </footer>
+  </main>
+
+  <div id="booking-bar" class="booking-bar" hidden>
+    <button type="button" id="btn-open-booking" class="booking-bar-btn t-pressable">
+      <span class="booking-bar-left">
+        <span id="booking-count" class="booking-count-badge tabular">0</span>
+        <span id="booking-summary-label">Agendar horário</span>
+      </span>
+      <span id="booking-bar-total" class="booking-bar-total tabular">R$ 0,00</span>
+    </button>
+  </div>
+
+  <!-- Modal Agendamento -->
+  <div id="booking-modal" class="modal-backdrop t-modal-backdrop" hidden role="dialog" aria-modal="true" aria-labelledby="bm-title">
+    <div class="modal-sheet modal-sheet-tall t-modal">
+      <div class="modal-header-bar">
+        <h2 id="bm-title">Confirmar Agendamento</h2>
+        <button type="button" class="modal-close-inline" data-close-modal="booking-modal" aria-label="Fechar">✕</button>
+      </div>
+
+      <div class="modal-content">
+        <div id="bm-selected-services" class="selected-list"></div>
+
+        <div class="summary-strip">
+          <div>
+            <small>Duração estimada</small>
+            <strong id="bm-total-duration" class="tabular">0 min</strong>
+          </div>
+          <div>
+            <small>Valor estimado</small>
+            <strong id="bm-total-price" class="tabular">R$ 0,00</strong>
+          </div>
+        </div>
+
+        <div id="bm-professional-group" class="form-group" hidden>
+          <label class="field-label">Profissional</label>
+          <div id="bm-professional-pills" class="choice-grid"></div>
+        </div>
+
+        <div id="bm-slot-picker">
+          <div class="form-group">
+            <label class="field-label">Data disponível</label>
+            <div id="bm-date-pills" class="date-pills-grid"></div>
+          </div>
+
+          <div class="form-group">
+            <div class="field-label-row">
+              <label class="field-label">Horário disponível</label>
+              <span id="bm-time-hint" class="field-label-meta"></span>
+            </div>
+            <div id="bm-time-slots" class="time-slots-grid"></div>
+          </div>
+        </div>
+
+        <div id="bm-legacy-schedule" hidden>
+          <div class="form-group">
+            <label class="field-label">Dia de preferência</label>
+            <div id="day-pills" class="choice-grid">
+              <button type="button" class="choice-btn active" data-day="Hoje">Hoje</button>
+              <button type="button" class="choice-btn" data-day="Amanhã">Amanhã</button>
+              <button type="button" class="choice-btn" data-day="Esta semana">Esta semana</button>
+              <button type="button" class="choice-btn" data-day="Sábado">Sábado</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="field-label">Período</label>
+            <div id="period-pills" class="choice-grid choice-grid-3">
+              <button type="button" class="choice-btn active" data-period="Manhã">Manhã</button>
+              <button type="button" class="choice-btn" data-period="Tarde">Tarde</button>
+              <button type="button" class="choice-btn" data-period="Noite">Noite</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="bm-customer-name" class="field-label">Seu nome</label>
+          <input type="text" id="bm-customer-name" class="t-input" placeholder="Digite seu nome" />
+        </div>
+
+        <div class="form-group">
+          <label for="bm-customer-phone" class="field-label">Seu WhatsApp (opcional)</label>
+          <input type="tel" id="bm-customer-phone" class="t-input" placeholder="(21) 99999-9999" />
+        </div>
+
+        <div id="bm-reminder-group" class="form-group reminder-box" hidden>
+          <label class="reminder-check-row">
+            <input type="checkbox" id="bm-reminder-optin" checked />
+            <span id="bm-reminder-label">Receber lembrete automático 2h antes no WhatsApp</span>
+          </label>
+          <p class="reminder-caption">O disparo automático faz parte do módulo Agenda Automática. Hoje você já pode baixar o aviso na sua agenda (.ics) grátis.</p>
+        </div>
+
+        <div class="form-group">
+          <label for="bm-notes" class="field-label">Observações (opcional)</label>
+          <textarea id="bm-notes" rows="2" placeholder="Ex.: preferência de horário ou detalhe do corte..."></textarea>
+        </div>
+
+        <details class="msg-preview-details">
+          <summary>Ver mensagem que vai pro WhatsApp</summary>
+          <pre id="bm-message-preview" class="msg-preview-pre"></pre>
+        </details>
+
+        <details id="bm-reminder-preview-details" class="msg-preview-details" hidden>
+          <summary>Ver prévia do lembrete automático pro cliente</summary>
+          <pre id="bm-reminder-preview" class="msg-preview-pre"></pre>
+        </details>
+      </div>
+
+      <div class="modal-footer-stack">
+        <button type="button" id="btn-send-booking" class="whatsapp-btn t-pressable">Solicitar Horário no WhatsApp</button>
+        <div class="modal-secondary-row">
+          <button type="button" id="btn-download-ics" class="secondary-btn t-pressable" hidden>Salvar na Agenda (.ics)</button>
+          <button type="button" id="btn-copy-booking" class="secondary-btn t-pressable">Copiar mensagem</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal QR Code -->
+  <div id="qr-modal" class="modal-backdrop t-modal-backdrop" hidden role="dialog" aria-modal="true" aria-labelledby="qr-title">
+    <div class="modal-sheet modal-sheet-compact t-modal">
+      <div class="modal-header-bar">
+        <h2 id="qr-title">QR Code de Agendamento</h2>
+        <button type="button" class="modal-close-inline" data-close-modal="qr-modal" aria-label="Fechar">✕</button>
+      </div>
+      <div class="modal-content qr-modal-body">
+        <p class="qr-caption">Coloque no balcão ou espelho para o cliente agendar o próximo retorno em 10 segundos.</p>
+        <div id="qr-svg-container" class="qr-svg-box"></div>
+        <a href="./qr-impressao.html" target="_blank" rel="noopener" class="primary-btn full-width t-pressable">Abrir folha A4 para imprimir</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Oferta Agência -->
+  <div id="agency-modal" class="modal-backdrop t-modal-backdrop" hidden role="dialog" aria-modal="true" aria-labelledby="ag-title">
+    <div class="modal-sheet modal-sheet-compact t-modal">
+      <div class="modal-header-bar">
+        <h2 id="ag-title">Ativar esta página oficial</h2>
+        <button type="button" class="modal-close-inline" data-close-modal="agency-modal" aria-label="Fechar">✕</button>
+      </div>
+      <div class="modal-content">
+        <p id="ag-subtitle" class="field-hint"></p>
+        <div id="ag-plans" class="ag-plans"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <template id="qr-svg-template"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 39 39" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h39v39H0z"/><path stroke="#0f172a" d="M1 1.5h7m4 0h6m6 0h1m6 0h7M1 2.5h1m5 0h1m3 0h1m1 0h1m2 0h1m4 0h2m2 0h1m1 0h3m1 0h1m5 0h1M1 3.5h1m1 0h3m1 0h1m1 0h2m2 0h1m1 0h1m1 0h1m1 0h1m2 0h1m1 0h1m6 0h1m1 0h3m1 0h1M1 4.5h1m1 0h3m1 0h1m1 0h4m2 0h1m1 0h2m4 0h1m1 0h5m1 0h1m1 0h3m1 0h1M1 5.5h1m1 0h3m1 0h1m1 0h1m4 0h8m1 0h2m1 0h2m1 0h1m1 0h1m1 0h3m1 0h1M1 6.5h1m5 0h1m1 0h4m1 0h1m3 0h1m2 0h1m1 0h1m1 0h1m1 0h3m1 0h1m5 0h1M1 7.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M9 8.5h1m1 0h2m4 0h7m3 0h1M1 9.5h1m1 0h5m3 0h1m2 0h4m5 0h1m1 0h5m1 0h5M1 10.5h5m3 0h1m4 0h1m1 0h1m2 0h1m1 0h2m1 0h1m4 0h2m1 0h1m3 0h1M3 11.5h1m1 0h7m1 0h1m1 0h3m2 0h1m1 0h2m3 0h3m1 0h2m3 0h2M1 12.5h1m1 0h1m6 0h2m2 0h3m3 0h4m3 0h2m1 0h1m1 0h1m4 0h1M3 13.5h3m1 0h2m2 0h1m1 0h1m1 0h2m1 0h1m1 0h1m2 0h2m1 0h12M3 14.5h1m1 0h2m1 0h1m1 0h4m1 0h1m1 0h1m2 0h2m2 0h1m4 0h1m2 0h1M6 15.5h2m2 0h3m1 0h4m1 0h1m1 0h1m1 0h1m2 0h1m1 0h1m2 0h4m1 0h2M1 16.5h1m2 0h3m1 0h1m1 0h2m2 0h3m3 0h3m2 0h1m3 0h1m2 0h2m3 0h1M2 17.5h2m3 0h1m1 0h2m1 0h1m1 0h1m4 0h1m3 0h6m1 0h2m1 0h1m1 0h3M1 18.5h4m1 0h1m2 0h3m1 0h1m1 0h3m4 0h4m3 0h2m1 0h1m2 0h2M1 19.5h1m1 0h2m1 0h6m1 0h3m2 0h1m2 0h1m3 0h1m1 0h2m1 0h2m1 0h1m2 0h2M1 20.5h2m1 0h1m3 0h2m1 0h2m4 0h1m1 0h4m1 0h2m4 0h1m1 0h1m4 0h1M2 21.5h3m2 0h3m1 0h1m1 0h3m2 0h1m1 0h1m4 0h5m1 0h1m1 0h3M1 22.5h2m1 0h3m1 0h3m1 0h1m1 0h1m2 0h2m1 0h3m1 0h1m4 0h1m4 0h1M1 23.5h3m2 0h2m4 0h1m1 0h3m1 0h1m2 0h1m6 0h2m1 0h4m1 0h2M4 24.5h3m1 0h1m3 0h2m2 0h9m2 0h3m2 0h2m2 0h1M1 25.5h4m1 0h2m1 0h5m2 0h2m2 0h1m2 0h1m2 0h6m1 0h1m1 0h2M1 26.5h2m3 0h1m2 0h3m2 0h3m2 0h2m3 0h1m1 0h2m1 0h1m2 0h1m2 0h1M1 27.5h1m2 0h2m1 0h2m5 0h6m1 0h1m1 0h1m4 0h3m1 0h2m1 0h3M1 28.5h1m2 0h2m2 0h3m3 0h3m5 0h1m4 0h2m1 0h4M1 29.5h1m1 0h1m1 0h3m1 0h2m1 0h3m1 0h1m1 0h1m4 0h1m1 0h3m1 0h5m1 0h1M9 30.5h1m2 0h1m2 0h1m1 0h1m2 0h1m1 0h1m1 0h1m3 0h2m3 0h2M1 31.5h7m3 0h1m2 0h1m1 0h2m1 0h1m1 0h3m1 0h2m2 0h1m1 0h1m1 0h1m1 0h1m1 0h1M1 32.5h1m5 0h1m1 0h4m1 0h1m1 0h2m2 0h5m4 0h1m3 0h2m1 0h1M1 33.5h1m1 0h3m1 0h1m1 0h4m2 0h2m2 0h2m2 0h11m1 0h2M1 34.5h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h4m2 0h2m2 0h1m1 0h1m1 0h1m1 0h2m1 0h2m2 0h1M1 35.5h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h2m5 0h2m2 0h3m7 0h3M1 36.5h1m5 0h1m4 0h2m1 0h1m1 0h1m1 0h2m1 0h4m1 0h5m1 0h2m2 0h1M1 37.5h7m1 0h1m1 0h5m1 0h2m4 0h1m1 0h2m3 0h2m1 0h5"/></svg>
+</template>
+  <script id="client-data" type="application/json">{"slug":"ferreiras-barber-fonseca","template":"servicos","showcase":false,"previewMode":true,"name":"Ferreira's Barber Shop","tagline":"Prévia demonstrativa · Agendamento rápido pelo WhatsApp para clientes do Fonseca (valores ilustrativos)","city":"Fonseca, Niterói - RJ","address":"Rua Carlos Maximiano, 10 - Fonseca","mapsUrl":"https://maps.google.com/?q=Rua+Carlos+Maximiano,+10+-+Fonseca,+Niteroi","rating":"4,9 no Google","whatsappNumber":"5521992627882","theme":"dark","primaryColor":"#c69b59","accentColor":"#10b981","coverImage":"../../assets/covers/studio-prime-barbearia.png","businessHours":{"timezone":"America/Sao_Paulo","schedule":{"mon":null,"tue":{"open":"09:00","close":"20:00"},"wed":{"open":"09:00","close":"20:00"},"thu":{"open":"09:00","close":"20:00"},"fri":{"open":"09:00","close":"20:00"},"sat":{"open":"08:30","close":"18:00"},"sun":null}},"categories":[{"id":"cabelo","name":"Cabelo"},{"id":"barba","name":"Barba \u0026 Acabamento"},{"id":"combos","name":"Combos"}],"services":[{"id":"corte-degrade","categoryId":"cabelo","name":"Corte Degradê / Navalhado","description":"Corte personalizado com acabamento na navalha e finalização (valor ilustrativo na prévia).","price":40,"durationMinutes":40,"tags":["Mais procurado"]},{"id":"corte-maquina","categoryId":"cabelo","name":"Corte na Máquina","description":"Corte prático com alinhamento e pezinho na navalha.","price":30,"durationMinutes":25},{"id":"corte-infantil","categoryId":"cabelo","name":"Corte Infantil","description":"Atendimento com paciência e acabamento cuidadoso.","price":35,"durationMinutes":35},{"id":"barba-navalha","categoryId":"barba","name":"Barba na Navalha \u0026 Hidratação","description":"Desenho limpo, navalha e pós-barba calmante.","price":35,"durationMinutes":30},{"id":"sobrancelha","categoryId":"barba","name":"Sobrancelha na Navalha","description":"Limpeza discreta mantendo o formato natural.","price":15,"durationMinutes":10},{"id":"combo-corte-barba","categoryId":"combos","name":"Combo Corte + Barba","description":"Os dois serviços juntos em um único horário marcado.","price":65,"durationMinutes":65,"tags":["Combo"]}],"reviews":[],"logoImage":"../../assets/logos/ferreiras-barber-fonseca.png"}</script>
+  <script id="agency-data" type="application/json">{"brandName":"GGDevStudio","brandInitials":"GG","ownerName":"Samuel","whatsappNumber":"5521976497921","city":"Niterói, RJ","pixKey":"21976497921","baseUrl":"https://sg-devstudio.github.io/ggdevstudio","plans":{"launch":{"name":"Oferta Primeiros 3 Clientes","setupFee":297,"monthlyFee":0,"description":"Implementação completa com QR Code imprimível (vagas limitadas para portfólio)."},"start":{"name":"Plano Start","setupFee":397,"monthlyFee":0,"description":"Pagamento único. Cardápio ou página no ar em até 48h + kit de QR Code A4."},"pro":{"name":"Plano Profissional","setupFee":197,"monthlyFee":97,"description":"Implantação + suporte contínuo, trocas de preços/fotos ilimitadas e ajustes mensais."}}}</script>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
